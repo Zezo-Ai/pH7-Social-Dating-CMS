@@ -49,7 +49,7 @@ class Language
             return null;
         }
 
-        $sLang = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE'])[0];
+        $sLang = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '')[0];
 
         return htmlspecialchars(
             strtolower(
