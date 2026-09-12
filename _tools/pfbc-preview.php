@@ -19,7 +19,10 @@ if (isset($_GET['reply'])) {
         http_response_code(503);
         echo '{}';
     } else {
-        echo json_encode(['errors' => ['Please check your email address.']]);
+        echo json_encode([
+            'errors' => ['Please check your email address.'],
+            'posted_tags' => is_string($_POST['tags'] ?? null) ? $_POST['tags'] : null
+        ]);
     }
     exit;
 }
@@ -30,6 +33,7 @@ define('PH7', true);
 define('PH7_DS', '/');
 define('PH7_SH', '/');
 define('PH7_JS', 'js/');
+define('PH7_ENCODING', 'utf-8');
 define('PH7_URL_STATIC', '/static/');
 define('PH7_PATH_PROTECTED', dirname(__DIR__) . '/_protected/');
 define('PH7_PATH_FRAMEWORK', PH7_PATH_PROTECTED . 'framework/');
@@ -78,6 +82,17 @@ $sScheme = ($_GET['scheme'] ?? '') === 'dark' ? 'dark' : 'light';
     <p>Actual PFBC output with the bundled Bootstrap, jQuery and jQuery UI. Submissions stay in this local fixture.</p>
     <p><a href="?theme=base">Base theme</a> · <a href="?theme=premium">Premium theme</a> · <a href="theme-preview.html">Theme style guide</a></p>
     <p><a href="?theme=<?= $sTheme ?>&amp;scheme=light">Light appearance</a> · <a href="?theme=<?= $sTheme ?>&amp;scheme=dark">Dark appearance</a></p>
+    <h2>Tags</h2>
+    <?php
+    $oTags = new PFBC\Form('preview_tags');
+    $oTags->configure(['onsubmit' => 'return false']);
+    $oTags->addElement(new PFBC\Element\Tag('Article tags', 'tags', ['value' => 'Travel,Coffee', 'validation' => new PFBC\Validation\Str(2, 191)]));
+    $oTags->addElement(new PFBC\Element\Tag('Required tags', 'required_tags', ['required' => 1, 'validation' => new PFBC\Validation\Str(2, 20)]));
+    $oTags->addElement(new PFBC\Element\Tag('Read-only tags', 'readonly_tags', ['value' => 'Saved tag', 'readonly' => 'readonly']));
+    $oTags->addElement(new PFBC\Element\Tag('Disabled tags', 'disabled_tags', ['value' => 'Unavailable', 'disabled' => 'disabled']));
+    $oTags->addElement(new PFBC\Element\Button('Reset tags', 'reset'));
+    $oTags->render();
+    ?>
     <h2>Login</h2>
     <?php
     $oLogin = new PFBC\Form('preview_login');
@@ -114,6 +129,7 @@ $sScheme = ($_GET['scheme'] ?? '') === 'dark' ? 'dark' : 'light';
             'action' => '?reply=' . ($sReply === 'plain' ? 'failure' : $sReply),
             'prevent' => $sReply === 'plain' ? ['jQueryUIButtons'] : []
         ]);
+        $oAjax->addElement(new PFBC\Element\Tag('Ajax tags', 'tags', ['value' => 'Travel', 'maxlength' => 191]));
         $oAjax->addElement(new PFBC\Element\Button('Test ' . $sReply, 'submit', $sReply === 'plain' ? ['class' => 'btn btn-danger'] : []));
         $oAjax->render();
     }

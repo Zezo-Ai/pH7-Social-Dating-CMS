@@ -14,6 +14,7 @@ use PFBC\Element\File;
 use PFBC\Element\Hidden;
 use PFBC\Element\HTMLExternal;
 use PFBC\Element\Radio;
+use PFBC\Element\Tag;
 use PFBC\Element\Textarea;
 use PFBC\Element\Textbox;
 use PH7\Datatype\Type;
@@ -175,15 +176,14 @@ class EditAdminBlogForm
             }
 
             $oForm->addElement(
-                new Textbox(
+                new Tag(
                     t('Tags:'),
                     'tags',
                     [
                         'value' => $oPost->tags,
-                        'description' => t('Separate keywords by commas and without spaces between the commas.'),
                         'validation' => new \PFBC\Validation\Str(
                             Form::MIN_STRING_FIELD_LENGTH,
-                            Form::MAX_STRING_FIELD_LENGTH
+                            Form::MAX_TAG_FIELD_LENGTH
                         )
                     ]
                 )

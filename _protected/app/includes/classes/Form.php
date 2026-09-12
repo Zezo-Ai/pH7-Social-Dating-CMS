@@ -20,6 +20,8 @@ class Form extends Framework\Layout\Form\Form
 
     public const MIN_STRING_FIELD_LENGTH = 2;
     public const MAX_STRING_FIELD_LENGTH = 200;
+    // Blog and note tags are stored in VARCHAR(191) columns.
+    public const MAX_TAG_FIELD_LENGTH = 191;
 
     /**
      * To get Value Data from the database.
