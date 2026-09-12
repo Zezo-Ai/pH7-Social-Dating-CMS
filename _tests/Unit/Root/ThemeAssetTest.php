@@ -25,6 +25,18 @@ final class ThemeAssetTest extends TestCase
         'menu_inverse.css'
     ];
 
+    public function testDropdownPanelsDoNotClipNestedNavigation(): void
+    {
+        $sCss = file_get_contents(dirname(__DIR__, 3) . '/templates/themes/base/css/design_system.css');
+        self::assertIsString($sCss);
+        self::assertSame(1, preg_match('/^\.dropdown-menu\s*\{([^}]+)\}/m', $sCss, $aMatches));
+        self::assertStringContainsString('overflow: visible;', $aMatches[1]);
+
+        $sPreview = file_get_contents(dirname(__DIR__, 3) . '/_tools/theme-preview.html');
+        self::assertIsString($sPreview);
+        self::assertStringContainsString('dropdown-submenu open', $sPreview);
+    }
+
     public function testEveryThemeProvidesSharedLayoutAssets(): void
     {
         $sThemesDirectory = dirname(__DIR__, 3) . '/templates/themes';
