@@ -111,7 +111,7 @@ class UserCoreModel extends Model
      * @param string $sPassword
      * @param string $sTable
      *
-     * @return bool|string (boolean "true" or string "message")
+     * @return bool|int true on success, otherwise a CredentialStatusCore error code
      */
     public function login($sEmail, $sPassword, $sTable = DbTableName::MEMBER)
     {

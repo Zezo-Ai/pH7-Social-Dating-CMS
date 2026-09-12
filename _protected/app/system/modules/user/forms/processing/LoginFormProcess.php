@@ -44,9 +44,9 @@ class LoginFormProcess extends Form implements LoginableForm
             return;
         }
 
-        $sLogin = $this->oUserModel->login($sEmail, $sPassword);
-        if ($sLogin === CredentialStatusCore::INCORRECT_EMAIL_IN_DB || $sLogin === CredentialStatusCore::INCORRECT_PASSWORD_IN_DB) {
-            $this->handleLoginFailure($sLogin, $sEmail, $oSecurityModel);
+        $mLoginStatus = $this->oUserModel->login($sEmail, $sPassword);
+        if ($mLoginStatus === CredentialStatusCore::INCORRECT_EMAIL_IN_DB || $mLoginStatus === CredentialStatusCore::INCORRECT_PASSWORD_IN_DB) {
+            $this->handleLoginFailure($mLoginStatus, $sEmail, $oSecurityModel);
             return;
         }
 
@@ -134,10 +134,10 @@ class LoginFormProcess extends Form implements LoginableForm
     /**
      * Handles login failure logic for incorrect email or password.
      */
-    private function handleLoginFailure(string $sLoginStatus, string $sEmail, SecurityModel $oSecurityModel): void
+    private function handleLoginFailure(int $iLoginStatus, string $sEmail, SecurityModel $oSecurityModel): void
     {
         $this->preventBruteForce(self::BRUTE_FORCE_SLEEP_DELAY);
-        if ($sLoginStatus === CredentialStatusCore::INCORRECT_EMAIL_IN_DB) {
+        if ($iLoginStatus === CredentialStatusCore::INCORRECT_EMAIL_IN_DB) {
             $this->enableCaptcha();
             \PFBC\Form::setError(
                 'form_login_user',
@@ -149,7 +149,7 @@ class LoginFormProcess extends Form implements LoginableForm
                 'No Password',
                 'Failed! Incorrect Username'
             );
-        } elseif ($sLoginStatus === CredentialStatusCore::INCORRECT_PASSWORD_IN_DB) {
+        } elseif ($iLoginStatus === CredentialStatusCore::INCORRECT_PASSWORD_IN_DB) {
             $oSecurityModel->addLoginLog(
                 $sEmail,
                 'Guest',
