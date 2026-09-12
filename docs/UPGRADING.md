@@ -3,6 +3,38 @@
 Automatic in-place upgrades are currently unavailable. Upgrade a staging copy
 manually, verify it, and only then repeat the reviewed procedure in production.
 
+## 19.2.0 dependency-maintenance release
+
+pH7Builder 19.2.0 updates the locked PHP dependencies and adds offline SDK
+compatibility checks. PHP 8.2+, MySQL 8.0+ and schema `1.6.6` are unchanged.
+No database migration is needed from 19.1.0. Bootstrap, jQuery, jQuery UI and
+the installer dependency are unchanged.
+
+Before upgrading, check `php --ri maxminddb` using the PHP installation that
+serves your site. If the optional compiled `ext-maxminddb` extension is present,
+upgrade it to `>=1.14.0 <2.0.0`; older versions conflict with the updated reader.
+The bundled pure-PHP reader does not require installing this extension.
+
+The reader update does not refresh the bundled 2019 GeoLite2 location data.
+Use a free MaxMind account to obtain current data and arrange regular updates;
+see the [GeoIP database instructions](../_protected/framework/Geo/Ip/update-geo-database-version.txt).
+Preserve your newer local database when replacing application files.
+
+Back up and test a staging copy. Deploy the complete 19.2.0 package while
+preserving local configuration, uploads, custom modules/themes, language packs
+and credentials. Source deployments must run `composer install --no-dev
+--prefer-dist --optimize-autoloader` from the new lock file. Do not run
+`composer update` on the live site or reuse an older vendor directory. Do not
+rerun the installer on an existing site; remove `_install` before reopening it.
+
+Clear application and browser/CDN caches. Check signup, login, admin navigation,
+email delivery, SMS, storage and a sandbox payment for the providers you use.
+Custom Twilio integrations should review its upstream changes, including the
+retired WhatsApp Senders v1 endpoints and changes to preview APIs; the bundled
+SMS provider uses the 2010 Messages API, not those endpoints. See the
+[19.2.0 release notes](RELEASE_NOTES_19.2.0.md) for dependency versions and sources.
+Earlier installations must also follow the applicable guidance below.
+
 ## 19.1.0 maintenance release
 
 pH7Builder 19.1.0 fixes member-login errors for invalid credentials, restores
