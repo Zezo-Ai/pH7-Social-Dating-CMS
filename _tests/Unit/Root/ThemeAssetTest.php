@@ -55,6 +55,19 @@ final class ThemeAssetTest extends TestCase
         }
     }
 
+    public function testPluginSurfacesUseThemeAwareTextAndBackgrounds(): void
+    {
+        $sCss = file_get_contents(dirname(__DIR__, 3) . '/templates/themes/base/css/design_system.css');
+        self::assertIsString($sCss);
+
+        foreach (['div.apprise .apprise-buttons button', '#tiptip_content'] as $sSelector) {
+            self::assertSame(1, preg_match('/^' . preg_quote($sSelector, '/') . '\\s*\\{([^}]+)\\}/m', $sCss, $aMatches));
+            self::assertStringContainsString('background: var(--ph7-', $aMatches[1]);
+            self::assertStringContainsString('color: var(--ph7-', $aMatches[1]);
+            self::assertStringContainsString('text-shadow: none;', $aMatches[1]);
+        }
+    }
+
     public function testEveryLocalCssImportResolves(): void
     {
         $sThemesDirectory = dirname(__DIR__, 3) . '/templates/themes';
