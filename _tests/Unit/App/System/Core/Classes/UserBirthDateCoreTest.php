@@ -12,12 +12,26 @@ namespace PH7\Test\Unit\App\System\Core\Classes;
 
 require_once PH7_PATH_SYS . 'core/classes/UserBirthDateCore.php';
 
+use ErrorException;
 use PH7\UserBirthDateCore;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class UserBirthDateCoreTest extends TestCase
 {
+    public function testMissingBirthDateDoesNotRaiseDeprecation(): void
+    {
+        set_error_handler(static function (int $iSeverity, string $sMessage): void {
+            throw new ErrorException($sMessage, 0, $iSeverity);
+        }, E_DEPRECATED);
+
+        try {
+            $this->assertSame(UserBirthDateCore::DEFAULT_AGE, UserBirthDateCore::getAgeFromBirthDate(null));
+        } finally {
+            restore_error_handler();
+        }
+    }
+
     #[DataProvider('invalidBirthDateProvider')]
     public function testInvalidAgeFromBirthDate(string $sBirthDate): void
     {

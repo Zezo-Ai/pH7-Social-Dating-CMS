@@ -17,13 +17,13 @@ class UserBirthDateCore
     public const NUMBER_ARRAY_ELEMENTS = 3;
 
     /**
-     * @param string $sBirthDate YYYY-MM-DD format
+     * @param string|null $sBirthDate YYYY-MM-DD format, or null for an incomplete profile
      *
      * @return int
      */
     public static function getAgeFromBirthDate($sBirthDate)
     {
-        $aAge = explode(self::BIRTHDATE_DELIMITER, $sBirthDate);
+        $aAge = explode(self::BIRTHDATE_DELIMITER, $sBirthDate ?? '');
 
         if (self::isInvalidBirthDate($aAge)) {
             return self::DEFAULT_AGE;
