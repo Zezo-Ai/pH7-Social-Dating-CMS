@@ -15,6 +15,8 @@ used by pH7Builder. It includes all login and navigation fixes from 19.1.0.
 - Adds removable tag chips to blog and note forms: press Enter or use commas,
   without character counters. Existing saved tags stay compatible; validation
   now matches the database's 191-character limit for the complete tag list.
+- Fixes an internal error when saving blog edits on strict MySQL installations:
+  the modification timestamp now uses the numeric row ID, not the URL slug.
 - Simplifies the footer to a versioned pH7Builder link to GitHub, with MaxMind
   attribution retained on the Legal Notice page and in copyright notices.
 - Adds offline checks for HTTP promises, S3 signing, SMS request construction,
