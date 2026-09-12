@@ -15,6 +15,8 @@ validation and nested admin navigation following the reports in
   themes, with larger dialog button targets.
 - Avoids a PHP 8.2 deprecation for profiles without a birth date while preserving
   the existing age fallback.
+- Handles concurrent cache-directory creation without logging a false
+  permissions error; genuine creation failures still raise an exception.
 - Aligns the contributor theme preview with production plugin markup and adds
   regression coverage for these fixes.
 

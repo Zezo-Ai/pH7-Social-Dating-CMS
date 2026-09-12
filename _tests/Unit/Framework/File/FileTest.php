@@ -11,11 +11,54 @@ declare(strict_types=1);
 namespace PH7\Test\Unit\Framework\File;
 
 use PH7\Framework\File\File;
+use PH7\Framework\File\Permission\PermissionException;
 use PHPUnit\Framework\TestCase;
 use ZipArchive;
 
 final class FileTest extends TestCase
 {
+    public function testCreateDirAcceptsDirectoryCreatedByAnotherWorker(): void
+    {
+        $oStream = new class {
+            public $context;
+            private static bool $bDirectoryExists = false;
+
+            public function url_stat(string $sPath, int $iFlags): array|false
+            {
+                return self::$bDirectoryExists ? ['mode' => 0040755] : false;
+            }
+
+            public function mkdir(string $sPath, int $iMode, int $iOptions): bool
+            {
+                // A competing worker creates the directory before mkdir returns.
+                self::$bDirectoryExists = true;
+
+                return false;
+            }
+        };
+        $this->assertTrue(stream_wrapper_register('ph7directoryrace', $oStream::class));
+
+        try {
+            (new File)->createDir('ph7directoryrace://cache');
+            $this->assertTrue(is_dir('ph7directoryrace://cache'));
+        } finally {
+            stream_wrapper_unregister('ph7directoryrace');
+        }
+    }
+
+    public function testCreateDirStillRejectsAFileAtTheDestination(): void
+    {
+        $sTarget = tempnam(sys_get_temp_dir(), 'ph7-create-dir-');
+        $this->assertNotFalse($sTarget);
+
+        try {
+            $this->expectException(PermissionException::class);
+            (new File)->createDir($sTarget);
+        } finally {
+            unlink($sTarget);
+        }
+    }
+
     // getFileExtWithDot
 
     public function testGetFileExtWithDotReturnsLowercaseDotExtension(): void
