@@ -112,7 +112,7 @@ class NoteModel extends NoteCoreModel
 
             $sSqlApproved = $bIsApproved ? ' AND approved = :approved' : '';
 
-            $sSqlQuery = 'SELECT n.*, c.*, m.username, m.firstName, m.sex FROM' . Db::prefix(DbTableName::NOTE) .
+            $sSqlQuery = 'SELECT n.*, c.categoryId, m.username, m.firstName, m.sex FROM' . Db::prefix(DbTableName::NOTE) .
                 'AS n LEFT JOIN' . Db::prefix(DbTableName::NOTE_CATEGORY) . 'AS c ON n.noteId = c.noteId INNER JOIN' .
                 Db::prefix(DbTableName::MEMBER) . 'AS m ON n.profileId = m.profileId WHERE n.profileId = :profileId AND n.postId = :postId' .
                 $sSqlApproved . ' LIMIT 1';

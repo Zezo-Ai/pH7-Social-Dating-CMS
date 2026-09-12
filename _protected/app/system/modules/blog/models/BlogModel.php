@@ -77,7 +77,7 @@ class BlogModel extends BlogCoreModel
 
         if (!$oPost = $this->cache->get()) {
             $rStmt = Db::getInstance()->prepare(
-                'SELECT * FROM' . Db::prefix(DbTableName::BLOG) . 'AS b LEFT JOIN' .
+                'SELECT b.*, c.categoryId FROM' . Db::prefix(DbTableName::BLOG) . 'AS b LEFT JOIN' .
                 Db::prefix(DbTableName::BLOG_CATEGORY) . 'AS c ON b.blogId = c.blogId WHERE b.postId = :postId LIMIT 1'
             );
             $rStmt->bindValue(':postId', $sPostId, PDO::PARAM_STR);
