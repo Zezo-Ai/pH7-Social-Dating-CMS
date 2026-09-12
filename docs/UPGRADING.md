@@ -19,10 +19,11 @@ dependencies; source deployments must run `composer install --no-dev
 site; remove the deployed `_install` directory before reopening it.
 
 Clear application caches in Admin → Tools → Caches, purge any CDN asset cache,
-and refresh browser assets. Deploy PHP and CSS together. Test valid and invalid
+and refresh browser assets. Deploy PHP, CSS and JavaScript together. Test valid and invalid
 member logins, signup, Stay signed in, and the nested Mod and Tools → Info menus
 on desktop and mobile. Review custom overrides of login processing or shared
-theme CSS. Earlier installations must also follow the applicable guidance below.
+theme CSS, navigation templates and JavaScript. Earlier installations must also
+follow the applicable guidance below.
 
 ## 19.0.1 patch release
 

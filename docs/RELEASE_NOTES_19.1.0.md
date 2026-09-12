@@ -10,7 +10,8 @@ validation and nested admin navigation following the reports in
   an unknown email. The login handler now accepts the integer error codes
   returned by the model and shows the intended validation message.
 - Restores nested admin menus, including Mod → Blog/Newsletter/Billing and
-  Tools → Info, by preventing parent dropdowns from clipping their submenus.
+  Tools → Info, by preventing parent dropdowns from clipping their submenus or
+  collapsing when a nested toggle is tapped on mobile.
 - Improves Apprise dialog button and tipTip tooltip contrast in light and dark
   themes, with larger dialog button targets.
 - Avoids a PHP 8.2 deprecation for profiles without a birth date while preserving

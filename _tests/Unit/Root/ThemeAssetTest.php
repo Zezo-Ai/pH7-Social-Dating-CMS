@@ -37,6 +37,25 @@ final class ThemeAssetTest extends TestCase
         self::assertStringContainsString('dropdown-submenu open', $sPreview);
     }
 
+    public function testNestedDropdownTogglesDoNotReachBootstrapsDocumentHandler(): void
+    {
+        $sScript = file_get_contents(dirname(__DIR__, 3) . '/static/js/common.js');
+        self::assertIsString($sScript);
+        self::assertStringContainsString("$('.navbar').on('click', '.dropdown-submenu > .dropdown-toggle'", $sScript);
+        self::assertStringContainsString('oEvent.stopPropagation();', $sScript);
+        self::assertStringContainsString(".children('.dropdown-toggle').attr('aria-expanded', 'false')", $sScript);
+        self::assertStringContainsString("$(this).attr('aria-expanded', 'true')", $sScript);
+
+        foreach (['base', 'premium'] as $sTheme) {
+            $sTemplate = file_get_contents(dirname(__DIR__, 3) . '/templates/themes/' . $sTheme . '/tpl/top_menu.inc.tpl');
+            self::assertIsString($sTemplate);
+            self::assertStringContainsString(
+                'title="{lang \'Admin Blog\'}" class="dropdown-toggle" role="button" aria-expanded="false" data-toggle="dropdown"',
+                $sTemplate
+            );
+        }
+    }
+
     public function testEveryThemeProvidesSharedLayoutAssets(): void
     {
         $sThemesDirectory = dirname(__DIR__, 3) . '/templates/themes';
