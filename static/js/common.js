@@ -4,6 +4,26 @@
  * License:       MIT License; See LICENSE.md and COPYRIGHT.md in the root directory.
  */
 
+// Bootstrap 3 closes all dropdowns when a nested toggle reaches its document handler.
+$(function () {
+    $('.navbar').on('click', '.dropdown-submenu > .dropdown-toggle', function (oEvent) {
+        oEvent.preventDefault();
+        oEvent.stopPropagation();
+
+        var oSubmenu = $(this).parent();
+        var bWasOpen = oSubmenu.hasClass('open');
+
+        oSubmenu.parent().find('.dropdown-submenu.open')
+            .removeClass('open')
+            .children('.dropdown-toggle').attr('aria-expanded', 'false');
+
+        if (!bWasOpen) {
+            oSubmenu.addClass('open');
+            $(this).attr('aria-expanded', 'true');
+        }
+    });
+});
+
 /**
  * Open external links in a new tab.
  * Delegated from the document so links added later (e.g. by ajax) are covered too.
