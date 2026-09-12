@@ -20,6 +20,41 @@
 <link rel="stylesheet" href="/templates/themes/base/css/js/jquery/apprise.css">
 <link rel="stylesheet" href="/templates/themes/base/css/js/jquery/tipTip.css">
 <link rel="stylesheet" href="/templates/themes/base/css/design_system.css">
+<style>
+/* Preview-only positioning; production plugins control their own placement. */
+.preview-dialog {
+    margin-bottom: 24px;
+}
+div.apprise.preview-dialog {
+    display: block;
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    max-width: 400px;
+    max-height: none;
+}
+#tiptip_holder.preview-tooltip {
+    display: inline-block;
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-bottom: 24px;
+}
+.preview-dropdown {
+    min-height: 300px;
+}
+.preview-dropdown .dropdown-toggle {
+    margin: 0;
+}
+@media (max-width: 480px) {
+    .preview-dropdown .dropdown-submenu > .dropdown-menu {
+        position: static;
+        float: none;
+        margin: 0 8px 8px;
+    }
+}
+</style>
 <script>
 const previewParameters = new URLSearchParams(window.location.search);
 const selectedTheme = previewParameters.get('theme') || 'base';
@@ -53,7 +88,7 @@ if (previewRevision) {
 <body style="padding: 24px 0;">
 <div class="container">
     <h1>Theme style guide</h1>
-    <p>Every component below uses stock Bootstrap 3 markup and the selected theme's production CSS chain.</p>
+    <p>Developer preview, not a live site page. These examples use the selected theme's production styles; overlays and menus are held open for inspection.</p>
     <p aria-label="Choose preview theme">
         Theme:
         <a class="btn btn-default btn-xs" href="?theme=base">Base</a>
@@ -125,37 +160,39 @@ if (previewRevision) {
         <a class="btn btn-primary" href="#">Be the first — join for free!</a>
     </div>
 
-    <h2>Apprise dialog & tipTip tooltip (forced visible)</h2>
-    <div style="position: relative; height: 220px;">
-        <div class="apprise" style="display:block; position:absolute; top:10px; left:10px; width:calc(100% - 20px); max-width:280px; box-sizing:border-box;">
-            <div class="apprise-inner">
-                <p>Are you sure you want to unmatch Alex?</p>
-                <div class="apprise-buttons">
-                    <button class="btn btn-primary">Yes, unmatch</button>
-                    <button class="btn btn-default">Cancel</button>
-                </div>
-            </div>
+    <h2>Dialog (preview)</h2>
+    <div class="apprise preview-dialog">
+        <div class="apprise-inner">
+            <div class="apprise-content">Are you sure you want to unmatch Alex?</div>
         </div>
-        <div id="tiptip_holder" class="tip_top" style="display:block; position:absolute; top:150px; right:10px; left:auto;">
-            <div id="tiptip_content">Online 5 minutes ago</div>
+        <div class="apprise-buttons">
+            <button type="button">Yes, unmatch</button>
+            <button type="button">Cancel</button>
         </div>
     </div>
 
+    <h2>Tooltip (preview)</h2>
+    <div id="tiptip_holder" class="tip_top preview-tooltip">
+        <div id="tiptip_content">Online 5 minutes ago</div>
+    </div>
+
     <h2>Dropdown (open)</h2>
-    <div class="dropdown open" style="margin-bottom: 120px;">
-        <button class="btn btn-default dropdown-toggle">Menu <span class="caret"></span></button>
-        <ul class="dropdown-menu" style="display:block; position:static;">
-            <li><a href="#">My profile</a></li>
-            <li><a href="#">Messages</a></li>
-            <li><a href="#">Settings</a></li>
-            <li class="dropdown-submenu open">
-                <a href="#">Tools → Info</a>
-                <ul class="dropdown-menu" style="display:block;">
-                    <li><a href="#">Software information</a></li>
-                    <li><a href="#">PHP configuration</a></li>
-                </ul>
-            </li>
-        </ul>
+    <div class="preview-dropdown">
+        <div class="dropdown open" style="display:inline-block;">
+            <button type="button" class="btn btn-default dropdown-toggle" aria-expanded="true">Menu <span class="caret"></span></button>
+            <ul class="dropdown-menu" style="display:block;">
+                <li><a href="#">My profile</a></li>
+                <li><a href="#">Messages</a></li>
+                <li><a href="#">Settings</a></li>
+                <li class="dropdown-submenu open">
+                    <a href="#">Tools → Info</a>
+                    <ul class="dropdown-menu" style="display:block;">
+                        <li><a href="#">Software information</a></li>
+                        <li><a href="#">PHP configuration</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 </body>
