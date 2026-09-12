@@ -369,7 +369,11 @@ class Design
                 $bSoftwareName = true;
             }
 
-            echo ($bSoftwareName ? '<span class="italic">' . t('Powered by') : ''), ' <strong>', ($bLink ? '<a class="underline" href="' . Kernel::SOFTWARE_WEBSITE . '" title="' . Kernel::SOFTWARE_DESCRIPTION . '">' : ''), ($bSoftwareName ? Kernel::SOFTWARE_NAME : ''), ($bVersion ? ' ' . Kernel::SOFTWARE_VERSION : ''), ($bLink ? '</a>' : ''), ($bSoftwareName ? '</strong></span>' : '');
+            echo ($bSoftwareName ? t('Powered by') . ' ' : ''),
+                ($bLink ? '<a href="' . Kernel::SOFTWARE_GIT_REPO_URL . '" title="' . Kernel::SOFTWARE_DESCRIPTION . '">' : ''),
+                ($bSoftwareName ? Kernel::SOFTWARE_NAME : ''),
+                ($bVersion ? ' v' . Kernel::SOFTWARE_VERSION : ''),
+                ($bLink ? '</a>' : '');
         }
 
         if ($bComment) {

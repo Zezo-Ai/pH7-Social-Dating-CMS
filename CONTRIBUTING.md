@@ -51,8 +51,14 @@ Theme/CSS contributions: `_tools/theme-preview.html` renders the base theme's CS
 For real PFBC forms, run `php -S 127.0.0.1:8642 -t .` and open
 `http://127.0.0.1:8642/_tools/pfbc-preview.php`. Check base and premium themes at
 desktop and mobile widths, then select **Run interaction checks** to verify
-agreement handling, password visibility, age sliders, character counts, and Ajax retry.
+agreement handling, password visibility, age sliders, tag chips, character counts, and Ajax retry.
 This preview only runs on PHP's local development server and uses no application data.
+
+Use `PFBC\Element\Tag` for comma-separated tag lists. It adds removable chips
+with Enter or commas, keeps pending text on submission, and falls back to a
+textbox without JavaScript. Supply the usual `Str` validator for the complete
+list; blog and note forms use `PH7\Form::MAX_TAG_FIELD_LENGTH` (191 characters,
+including commas). Tag fields intentionally opt out of character counters.
 
 Use `_tools/autocomplete-preview.html` on the same server to check recipient and
 city suggestions. Its interaction checks use fixed mock responses; they do not

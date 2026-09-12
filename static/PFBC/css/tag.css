@@ -1,0 +1,120 @@
+/* PFBC tag input. Shared by every theme; uses the theme's existing colour tokens. */
+.pfbc-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    max-width: 100%;
+    min-height: 48px;
+    box-sizing: border-box;
+    padding: 6px 10px;
+    border: 1px solid var(--ph7-border, #e4e4ec);
+    border-radius: var(--ph7-radius-sm, 8px);
+    background: var(--ph7-bg, #fff);
+    color: var(--ph7-text, #1c1c26);
+}
+
+.pfbc-tags:focus-within {
+    border-color: var(--ph7-primary, #d6336c);
+    box-shadow: 0 0 0 3px var(--ph7-primary-soft, #fde8ef);
+}
+
+.pfbc-tags.pfbc-tags-invalid {
+    border-color: var(--ph7-error, #a12622);
+}
+
+.pfbc-tags.pfbc-tags-invalid:focus-within {
+    box-shadow: 0 0 0 3px var(--ph7-error-bg, #fff2f1);
+}
+
+.pfbc-tags-list {
+    display: contents;
+}
+
+.pfbc-tag {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    padding-left: 12px;
+    border-radius: var(--ph7-radius-pill, 999px);
+    background: var(--ph7-primary-soft, #fde8ef);
+    color: var(--ph7-text, #1c1c26);
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.pfbc-tag-label {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Override the legacy form/input rules without changing ordinary PFBC textboxes. */
+form .pfbc-tags input.pfbc-tags-input[type=text],
+form .pfbc-tags input.pfbc-tags-input[type=text]:focus {
+    flex: 1 1 140px;
+    width: 140px !important;
+    min-width: 0;
+    min-height: 36px;
+    height: auto;
+    margin: 0;
+    padding: 4px 0;
+    border: 0 !important;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    outline: none;
+    color: inherit;
+    font-size: 16px;
+}
+
+form .pfbc-tag-remove {
+    flex: 0 0 36px;
+    min-width: 36px;
+    min-height: 36px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+form .pfbc-tag-remove:hover:not(:disabled),
+form .pfbc-tag-remove:focus-visible {
+    background: var(--ph7-border, #e4e4ec);
+    outline: 2px solid var(--ph7-primary, #d6336c);
+    outline-offset: -2px;
+}
+
+.pfbc-tags-help, .pfbc-tags-error {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    font-style: normal;
+    color: var(--ph7-text-muted, #6b6b7a);
+}
+
+.pfbc-tags-error {
+    color: var(--ph7-error, #a12622);
+}
+
+.pfbc-tags-error:empty, .pfbc-tags-help:empty {
+    display: none;
+}
+
+.pfbc-tags-inactive {
+    background: var(--ph7-surface, #f7f7fa);
+    color: var(--ph7-text-muted, #6b6b7a);
+}
+
+.pfbc-tags-inactive .pfbc-tag {
+    padding: 8px 12px;
+}
+
+.pfbc-tags-inactive .pfbc-tag-remove {
+    display: none;
+}

@@ -170,7 +170,7 @@
           {{ $design->littleSocialMediaWidgets() }}
 
           <p>
-            &copy; <ph:date value="Y" /> <strong>{site_name}</strong>  {{ $design->link() }}
+            {{ $design->link(true, true, true) }}
           </p>
         </div>
         {{ $design->langList() }}
@@ -188,12 +188,6 @@
     </footer>
 
     <div class="clear"></div>
-    <div class="right vs_marg">
-      {* Required for the GeoLite2 free version. Not needed if you purchase their full paid version *}
-      <small class="small">
-        {lang}We use GeoLite2 from <a href="https://www.maxmind.com" rel="nofollow" class="gray">MaxMind</a>{/lang}
-      </small>
-    </div>
     <!-- End Footer -->
 
     <!-- Begin Footer JavaScript -->
