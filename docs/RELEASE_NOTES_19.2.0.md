@@ -12,6 +12,8 @@ used by pH7Builder. It includes all login and navigation fixes from 19.1.0.
   resource limits. These are dependency hardening changes, not a claim that
   a vulnerability was found in pH7Builder's own application code.
 - Refreshes PHPStan, PHP CS Fixer and supporting development dependencies.
+- Simplifies the footer to a versioned pH7Builder link to GitHub, with MaxMind
+  attribution retained on the Legal Notice page and in copyright notices.
 - Adds offline checks for HTTP promises, S3 signing, SMS request construction,
   Braintree client tokens, the bundled GeoIP database and MIME email generation.
 

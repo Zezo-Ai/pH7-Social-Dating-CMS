@@ -20,6 +20,11 @@ Use a free MaxMind account to obtain current data and arrange regular updates;
 see the [GeoIP database instructions](../_protected/framework/Geo/Ip/update-geo-database-version.txt).
 Preserve your newer local database when replacing application files.
 
+The base and premium footers now show a plain, versioned pH7Builder link to
+GitHub instead of the site name and GeoLite2 line. The existing branding
+visibility setting still applies. MaxMind attribution is on the Legal Notice
+page and in `COPYRIGHT.md`; retain it when merging customised legal pages.
+
 Back up and test a staging copy. Deploy the complete 19.2.0 package while
 preserving local configuration, uploads, custom modules/themes, language packs
 and credentials. Source deployments must run `composer install --no-dev

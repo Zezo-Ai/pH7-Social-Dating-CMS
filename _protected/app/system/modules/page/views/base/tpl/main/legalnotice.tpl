@@ -18,6 +18,11 @@ The user is solely responsible for their use.</p>
 No material from this website or its sub-domains and other services may not be copied, reproduced, modified, republished, uploaded, distorted, transmitted or distributed in any manner whatsoever.</p>
 <p>&nbsp;</p>
 
+<p><strong>Geolocation data</strong></p>
+<p>This product includes GeoLite2 data created by <a href="https://www.maxmind.com/">MaxMind</a>.
+The bundled legacy database is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0</a>.</p>
+<p>&nbsp;</p>
+
 <p><strong>Publisher and Managing Editor</strong></p>
 <p>NAME OF YOUR PUBLISHER, MANAGING EDITOR HERE<br />
 Contact: <a href="mailto:{admin_email}" rel="nofollow">{admin_email}</a>.</p>
